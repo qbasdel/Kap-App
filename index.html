@@ -1,461 +1,88 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KAP</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+<meta charset="UTF-8">
+<title>KAP</title>
 
-    body {
-      background: #f4f6f8;
-      color: #111827;
-    }
+<style>
+body {
+  font-family: Arial;
+  background: #f5f5f5;
+  text-align: center;
+  padding-top: 60px;
+}
 
-    .app {
-      width: 100%;
-      max-width: 430px;
-      min-height: 100vh;
-      margin: 0 auto;
-      background: #fff;
-      display: flex;
-      flex-direction: column;
-    }
+.logo {
+  width: 100px;
+  margin-bottom: 10px;
+}
 
-    .header {
-      text-align: center;
-      padding: 18px 16px;
-      border-bottom: 1px solid #eee;
-      font-weight: 800;
-      font-size: 18px;
-    }
+h1 {
+  font-size: 30px;
+}
 
-    .main {
-      flex: 1;
-      padding: 22px 18px 28px;
-    }
+button {
+  width: 220px;
+  padding: 15px;
+  margin: 10px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
 
-    .hidden {
-      display: none !important;
-    }
+.primary {
+  background: #c04a2b;
+  color: white;
+}
 
-    .center {
-      min-height: calc(100vh - 120px);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
+.secondary {
+  background: white;
+  border: 1px solid #ccc;
+}
 
-    .logo {
-      width: 140px;
-      margin-bottom: 10px;
-    }
+.hidden {
+  display: none;
+}
+</style>
 
-    .brand {
-      font-size: 34px;
-      font-weight: 900;
-      margin-bottom: 12px;
-      color: #1f2937;
-    }
-
-    .subtitle {
-      color: #6b7280;
-      font-size: 15px;
-      margin-bottom: 24px;
-      line-height: 1.5;
-      max-width: 320px;
-    }
-
-    .btn {
-      width: 100%;
-      border: none;
-      border-radius: 14px;
-      padding: 15px 16px;
-      font-size: 16px;
-      font-weight: 800;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-
-    .btn-primary {
-      background: #c55a34;
-      color: #fff;
-    }
-
-    .btn-secondary {
-      background: #fff;
-      color: #111827;
-      border: 1px solid #d1d5db;
-    }
-
-    .btn-dark {
-      background: #111827;
-      color: #fff;
-    }
-
-    .btn-small {
-      padding: 10px 12px;
-      font-size: 14px;
-      border-radius: 10px;
-      margin-top: 12px;
-    }
-
-    .card {
-      background: #fff;
-      border: 1px solid #e5e7eb;
-      border-radius: 16px;
-      padding: 16px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
-      margin-bottom: 16px;
-    }
-
-    .restaurant-box {
-      background: #f9fafb;
-      border: 1px solid #e5e7eb;
-      border-radius: 14px;
-      padding: 14px;
-      margin-bottom: 18px;
-    }
-
-    .restaurant-box h3 {
-      font-size: 18px;
-      margin-bottom: 6px;
-    }
-
-    .restaurant-box p {
-      color: #6b7280;
-      font-size: 14px;
-      margin-bottom: 4px;
-    }
-
-    .section-title {
-      font-size: 22px;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-
-    .section-subtitle {
-      font-size: 14px;
-      color: #6b7280;
-      margin-bottom: 16px;
-      line-height: 1.5;
-    }
-
-    .form-group {
-      margin-bottom: 14px;
-    }
-
-    label {
-      display: block;
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-
-    input, textarea {
-      width: 100%;
-      padding: 13px 14px;
-      border: 1px solid #d1d5db;
-      border-radius: 12px;
-      font-size: 15px;
-      outline: none;
-      background: #fff;
-    }
-
-    textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
-
-    .back {
-      margin-bottom: 12px;
-      display: inline-block;
-      font-size: 14px;
-      color: #374151;
-      text-decoration: none;
-      cursor: pointer;
-      font-weight: 700;
-    }
-
-    .order-card h3 {
-      font-size: 18px;
-      margin-bottom: 8px;
-      color: #111827;
-    }
-
-    .order-card p {
-      font-size: 14px;
-      color: #4b5563;
-      margin-bottom: 6px;
-      line-height: 1.5;
-    }
-
-    .badge {
-      display: inline-block;
-      background: #fff7ed;
-      color: #c2410c;
-      border: 1px solid #fdba74;
-      border-radius: 999px;
-      padding: 5px 10px;
-      font-size: 12px;
-      font-weight: 800;
-      margin-bottom: 10px;
-    }
-
-    .success {
-      display: none;
-      margin-top: 12px;
-      background: #ecfdf5;
-      border: 1px solid #a7f3d0;
-      color: #065f46;
-      border-radius: 12px;
-      padding: 12px;
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .offer-box {
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px dashed #d1d5db;
-    }
-
-    .offer-item {
-      padding: 10px 0;
-      border-bottom: 1px solid #f3f4f6;
-      font-size: 14px;
-    }
-
-    .muted {
-      color: #6b7280;
-      font-size: 13px;
-    }
-  </style>
 </head>
+
 <body>
-  <div class="app">
-    <div class="header">KAP</div>
 
-    <div class="main">
-      <!-- HOME -->
-      <section id="homePage" class="center">
-        <img src="logo.png" alt="KAP Logo" class="logo" />
-        <div class="brand">KAP</div>
-        <div class="subtitle">
-          Kurye çağır, teklif topla, en uygun kuryeyi seç.
-        </div>
+<img src="https://i.imgur.com/8Km9tLL.png" class="logo">
 
-        <button class="btn btn-primary" onclick="showPage('orderPage')">Kurye Çağır</button>
-        <button class="btn btn-secondary" onclick="openMarket()">Kurye Pazarı</button>
-      </section>
+<h1>KAP</h1>
+<p>Kurye çağır, teklif topla, en uygun kuryeyi seç.</p>
 
-      <!-- ORDER PAGE -->
-      <section id="orderPage" class="hidden">
-        <div class="back" onclick="showPage('homePage')">← Geri Dön</div>
+<!-- Restaurant -->
+<button id="restaurantBtn" class="primary">Kurye Çağır</button>
 
-        <div class="restaurant-box">
-          <h3 id="restaurantName">Restoran Yükleniyor...</h3>
-          <p id="restaurantAddress">Adres yükleniyor...</p>
-          <p id="restaurantPhone">Telefon yükleniyor...</p>
-        </div>
+<!-- Driver -->
+<button id="driverBtn" class="secondary">Kurye Pazarı</button>
 
-        <div class="section-title">Pazar Talebi Oluştur</div>
-        <div class="section-subtitle">
-          Kaç paketiniz olduğunu ve toplam teklif fiyatınızı girin. Kuryeler teklif versin, siz seçin.
-        </div>
+<script>
 
-        <form onsubmit="createOrder(event)">
-          <div class="form-group">
-            <label for="packageCount">Paket Sayısı</label>
-            <input id="packageCount" type="number" min="1" placeholder="Örn: 3" required />
-          </div>
+// قراءة نوع المستخدم من اللينك
+const params = new URLSearchParams(window.location.search);
+const role = params.get("role");
 
-          <div class="form-group">
-            <label for="offerPrice">Toplam Teklif Fiyatı (TL)</label>
-            <input id="offerPrice" type="number" min="1" placeholder="Örn: 250" required />
-          </div>
+// التحكم في الأزرار
+if (role === "restaurant") {
+  document.getElementById("driverBtn").style.display = "none";
+}
 
-          <div class="form-group">
-            <label for="orderNotes">Notlar</label>
-            <textarea id="orderNotes" placeholder="Ek bilgi yazabilirsiniz..."></textarea>
-          </div>
+if (role === "driver") {
+  document.getElementById("restaurantBtn").style.display = "none";
+}
 
-          <button type="submit" class="btn btn-primary">Talebi Yayınla</button>
-        </form>
+// لو مفيش role → نخفي الاتنين
+if (!role) {
+  document.getElementById("restaurantBtn").style.display = "none";
+  document.getElementById("driverBtn").style.display = "none";
+}
 
-        <div id="orderSuccess" class="success">
-          Talebiniz başarıyla yayınlandı.
-        </div>
-      </section>
+</script>
 
-      <!-- MARKET PAGE -->
-      <section id="marketPage" class="hidden">
-        <div class="back" onclick="showPage('homePage')">← Geri Dön</div>
-
-        <div class="section-title">Kurye Pazarı</div>
-        <div class="section-subtitle">
-          Açık talepleri görüntüleyin ve teklif verin.
-        </div>
-
-        <div id="marketList"></div>
-      </section>
-    </div>
-  </div>
-
-  <script>
-    const restaurants = {
-      bebo: {
-        name: "Bebo Restaurant",
-        address: "İstanbul / Esenyurt",
-        phone: "0537 767 00 30"
-      },
-      demo: {
-        name: "Kap Demo Restaurant",
-        address: "İstanbul / Beylikdüzü",
-        phone: "0500 000 00 00"
-      }
-    };
-
-    const params = new URLSearchParams(window.location.search);
-    const restaurantId = params.get("restaurant") || "bebo";
-    const currentRestaurant = restaurants[restaurantId] || restaurants["bebo"];
-
-    const pages = ["homePage", "orderPage", "marketPage"];
-
-    function showPage(pageId) {
-      pages.forEach(id => document.getElementById(id).classList.add("hidden"));
-      document.getElementById(pageId).classList.remove("hidden");
-      if (pageId === "marketPage") renderMarket();
-    }
-
-    function openMarket() {
-      showPage("marketPage");
-    }
-
-    function fillRestaurantInfo() {
-      document.getElementById("restaurantName").innerText = currentRestaurant.name;
-      document.getElementById("restaurantAddress").innerText = currentRestaurant.address;
-      document.getElementById("restaurantPhone").innerText = currentRestaurant.phone;
-    }
-
-    function getOrders() {
-      return JSON.parse(localStorage.getItem("kap_orders") || "[]");
-    }
-
-    function saveOrders(orders) {
-      localStorage.setItem("kap_orders", JSON.stringify(orders));
-    }
-
-    function createOrder(event) {
-      event.preventDefault();
-
-      const packageCount = document.getElementById("packageCount").value;
-      const offerPrice = document.getElementById("offerPrice").value;
-      const orderNotes = document.getElementById("orderNotes").value;
-
-      const orders = getOrders();
-
-      const newOrder = {
-        id: Date.now(),
-        restaurantId: restaurantId,
-        restaurantName: currentRestaurant.name,
-        restaurantAddress: currentRestaurant.address,
-        restaurantPhone: currentRestaurant.phone,
-        packageCount,
-        offerPrice,
-        notes: orderNotes,
-        type: "Pazar",
-        status: "Açık",
-        offers: []
-      };
-
-      orders.unshift(newOrder);
-      saveOrders(orders);
-
-      document.getElementById("orderSuccess").style.display = "block";
-      event.target.reset();
-
-      setTimeout(() => {
-        document.getElementById("orderSuccess").style.display = "none";
-      }, 2000);
-    }
-
-    function submitOffer(orderId) {
-      const driverName = prompt("Kurye adı:");
-      if (!driverName) return;
-
-      const driverPhone = prompt("Kurye telefonu:");
-      if (!driverPhone) return;
-
-      const driverPrice = prompt("Teklif fiyatı (TL):");
-      if (!driverPrice) return;
-
-      const orders = getOrders();
-      const order = orders.find(o => o.id === orderId);
-      if (!order) return;
-
-      order.offers.push({
-        driverName,
-        driverPhone,
-        driverPrice
-      });
-
-      saveOrders(orders);
-      renderMarket();
-      alert("Teklifiniz gönderildi.");
-    }
-
-    function renderMarket() {
-      const marketList = document.getElementById("marketList");
-      const orders = getOrders();
-      const openOrders = orders.filter(order => order.status === "Açık");
-
-      if (openOrders.length === 0) {
-        marketList.innerHTML = `
-          <div class="card">
-            <p class="muted">Henüz açık talep yok.</p>
-          </div>
-        `;
-        return;
-      }
-
-      marketList.innerHTML = openOrders.map(order => `
-        <div class="card order-card">
-          <div class="badge">${order.type} • ${order.status}</div>
-          <h3>${order.restaurantName}</h3>
-          <p><strong>Alış:</strong> ${order.restaurantAddress}</p>
-          <p><strong>Telefon:</strong> ${order.restaurantPhone}</p>
-          <p><strong>Paket Sayısı:</strong> ${order.packageCount}</p>
-          <p><strong>Toplam Teklif:</strong> ${order.offerPrice} TL</p>
-          <p><strong>Not:</strong> ${order.notes || "-"}</p>
-
-          <button class="btn btn-primary btn-small" onclick="submitOffer(${order.id})">Teklif Ver</button>
-
-          <div class="offer-box">
-            <strong>Gelen Teklifler:</strong>
-            ${
-              order.offers.length === 0
-                ? `<div class="muted" style="margin-top:8px;">Henüz teklif yok.</div>`
-                : order.offers.map(offer => `
-                    <div class="offer-item">
-                      <strong>${offer.driverName}</strong> — ${offer.driverPhone}<br>
-                      Teklif: <strong>${offer.driverPrice} TL</strong>
-                    </div>
-                  `).join("")
-            }
-          </div>
-        </div>
-      `).join("");
-    }
-
-    fillRestaurantInfo();
-  </script>
 </body>
 </html>
