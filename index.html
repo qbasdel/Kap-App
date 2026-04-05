@@ -1,417 +1,128 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KAP</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KAP</title>
 
-    body {
-      background: linear-gradient(180deg, #0f172a, #111827);
-      color: white;
-      min-height: 100vh;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  display: flex;
+  justify-content: center;
+}
 
-    .container {
-      width: 100%;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 24px;
-    }
+/* Mobile Frame */
+.app {
+  width: 100%;
+  max-width: 420px;
+  min-height: 100vh;
+  background: white;
+  display: flex;
+  flex-direction: column;
+}
 
-    .hidden {
-      display: none !important;
-    }
+/* Header */
+.header {
+  text-align: center;
+  padding: 20px;
+  font-weight: bold;
+  font-size: 18px;
+}
 
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 0 24px;
-    }
+/* Main */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
-    .logo {
-      font-size: 34px;
-      font-weight: 800;
-      color: #7CFF3B;
-      letter-spacing: 1px;
-    }
+/* Logo */
+.logo {
+  width: 140px;
+  margin-bottom: 10px;
+}
 
-    .nav-note {
-      color: #cbd5e1;
-      font-size: 14px;
-    }
+/* KAP Text */
+.title {
+  font-size: 36px;
+  font-weight: 900;
+  margin-bottom: 20px;
+  color: #222;
+}
 
-    .hero {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      min-height: calc(100vh - 100px);
-    }
+/* Buttons */
+.buttons {
+  display: flex;
+  gap: 10px;
+}
 
-    .hero h1 {
-      font-size: 64px;
-      color: #7CFF3B;
-      margin-bottom: 14px;
-      font-weight: 800;
-    }
+.btn {
+  padding: 14px 18px;
+  border-radius: 10px;
+  border: none;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-    .hero p {
-      font-size: 24px;
-      color: #e5e7eb;
-      margin-bottom: 36px;
-      max-width: 800px;
-      line-height: 1.5;
-    }
+.btn-primary {
+  background: #c24d2c;
+  color: white;
+}
 
-    .button-group {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(220px, 1fr));
-      gap: 16px;
-      width: 100%;
-      max-width: 850px;
-    }
+.btn-outline {
+  background: white;
+  border: 1px solid #ccc;
+}
 
-    .btn {
-      border: none;
-      border-radius: 14px;
-      padding: 18px 22px;
-      font-size: 18px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: 0.2s ease;
-    }
+/* Bottom Nav */
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  padding: 12px;
+  border-top: 1px solid #eee;
+  font-size: 12px;
+}
 
-    .btn:hover {
-      transform: translateY(-2px);
-      opacity: 0.95;
-    }
-
-    .btn-primary {
-      background: #7CFF3B;
-      color: #0f172a;
-    }
-
-    .btn-secondary {
-      background: white;
-      color: #0f172a;
-    }
-
-    .btn-dark {
-      background: #1f2937;
-      color: white;
-      border: 1px solid #374151;
-    }
-
-    .page-title {
-      font-size: 34px;
-      font-weight: 800;
-      margin-bottom: 10px;
-      color: #7CFF3B;
-    }
-
-    .page-subtitle {
-      color: #d1d5db;
-      margin-bottom: 28px;
-      font-size: 16px;
-    }
-
-    .card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 18px;
-      padding: 24px;
-      backdrop-filter: blur(8px);
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .form-group.full {
-      grid-column: 1 / -1;
-    }
-
-    label {
-      font-size: 14px;
-      color: #e5e7eb;
-      font-weight: 700;
-    }
-
-    input, textarea {
-      width: 100%;
-      padding: 14px 14px;
-      border-radius: 12px;
-      border: 1px solid #374151;
-      background: #111827;
-      color: white;
-      font-size: 15px;
-      outline: none;
-    }
-
-    textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
-
-    .top-actions {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .order-list {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(280px, 1fr));
-      gap: 18px;
-    }
-
-    .order-item {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 16px;
-      padding: 18px;
-    }
-
-    .order-item h3 {
-      color: #7CFF3B;
-      margin-bottom: 12px;
-      font-size: 20px;
-    }
-
-    .order-item p {
-      color: #e5e7eb;
-      margin-bottom: 8px;
-      line-height: 1.5;
-      font-size: 15px;
-    }
-
-    .back-btn {
-      margin-bottom: 20px;
-    }
-
-    .success-box {
-      margin-top: 18px;
-      background: rgba(124,255,59,0.12);
-      color: #d9ffc2;
-      padding: 14px;
-      border-radius: 12px;
-      border: 1px solid rgba(124,255,59,0.25);
-      display: none;
-    }
-
-    @media (max-width: 768px) {
-      .hero h1 {
-        font-size: 46px;
-      }
-
-      .hero p {
-        font-size: 18px;
-      }
-
-      .button-group {
-        grid-template-columns: 1fr;
-      }
-
-      .form-grid,
-      .order-list {
-        grid-template-columns: 1fr;
-      }
-
-      .page-title {
-        font-size: 28px;
-      }
-    }
-  </style>
+</style>
 </head>
+
 <body>
-  <div class="container">
-    <div class="navbar">
-      <div class="logo">KAP</div>
-      <div class="nav-note">Kurye ve Teslimat Platformu</div>
+
+<div class="app">
+
+  <!-- Header -->
+  <div class="header">Ana Sayfa</div>
+
+  <!-- Main -->
+  <div class="main">
+
+    <!-- Logo -->
+    <img src="logo.png" class="logo">
+
+    <!-- Title -->
+    <div class="title">KAP</div>
+
+    <!-- Buttons -->
+    <div class="buttons">
+      <button class="btn btn-primary">Kurye Çağır</button>
+      <button class="btn btn-outline">Kurye Pazarı</button>
     </div>
 
-    <!-- HOME -->
-    <section id="homePage" class="hero">
-      <h1>KAP</h1>
-      <p>Hızlı kurye çağır, teslimat taleplerini yönet, kuryeleri tek ekranda organize et.</p>
-
-      <div class="button-group">
-        <button class="btn btn-primary" onclick="showPage('orderPage')">Kurye Çağır</button>
-        <button class="btn btn-secondary" onclick="showPage('marketPage')">Kurye Pazarı</button>
-        <button class="btn btn-dark" onclick="showPage('restaurantPage')">Restoran Başvurusu</button>
-      </div>
-    </section>
-
-    <!-- ORDER PAGE -->
-    <section id="orderPage" class="hidden">
-      <button class="btn btn-dark back-btn" onclick="showPage('homePage')">← Geri Dön</button>
-
-      <div class="top-actions">
-        <div>
-          <div class="page-title">Yeni Sipariş Oluştur</div>
-          <div class="page-subtitle">Teslimat talebinizi birkaç saniyede oluşturun.</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <form class="form-grid" onsubmit="submitOrder(event)">
-          <div class="form-group">
-            <label for="name">Ad Soyad</label>
-            <input id="name" type="text" placeholder="Ad Soyad" required />
-          </div>
-
-          <div class="form-group">
-            <label for="phone">Telefon</label>
-            <input id="phone" type="text" placeholder="05xx xxx xx xx" required />
-          </div>
-
-          <div class="form-group full">
-            <label for="pickup">Alış Adresi</label>
-            <input id="pickup" type="text" placeholder="Ürünün alınacağı adres" required />
-          </div>
-
-          <div class="form-group full">
-            <label for="delivery">Teslimat Adresi</label>
-            <input id="delivery" type="text" placeholder="Ürünün teslim edileceği adres" required />
-          </div>
-
-          <div class="form-group full">
-            <label for="notes">Notlar</label>
-            <textarea id="notes" placeholder="Ek bilgi yazabilirsiniz..."></textarea>
-          </div>
-
-          <div class="form-group full">
-            <button class="btn btn-primary" type="submit">Siparişi Gönder</button>
-          </div>
-        </form>
-
-        <div id="successMessage" class="success-box">
-          Siparişiniz başarıyla oluşturuldu.
-        </div>
-      </div>
-    </section>
-
-    <!-- MARKET PAGE -->
-    <section id="marketPage" class="hidden">
-      <button class="btn btn-dark back-btn" onclick="showPage('homePage')">← Geri Dön</button>
-
-      <div class="top-actions">
-        <div>
-          <div class="page-title">Kurye Pazarı</div>
-          <div class="page-subtitle">Açık teslimat taleplerini inceleyin.</div>
-        </div>
-      </div>
-
-      <div class="order-list" id="marketList">
-        <div class="order-item">
-          <h3>Sipariş #1001</h3>
-          <p><strong>Alış:</strong> Merkez Mah. Restaurant Sok. No:12</p>
-          <p><strong>Teslimat:</strong> Bahçelievler Mah. No:27</p>
-          <p><strong>Not:</strong> Hızlı teslim edilmesi gerekiyor.</p>
-          <button class="btn btn-primary" onclick="alert('Talep alındı')">Talebi Al</button>
-        </div>
-
-        <div class="order-item">
-          <h3>Sipariş #1002</h3>
-          <p><strong>Alış:</strong> Göztepe Mah. Paket Şube</p>
-          <p><strong>Teslimat:</strong> Esenyurt Meydan</p>
-          <p><strong>Not:</strong> Paket hassas, dikkatli taşıyın.</p>
-          <button class="btn btn-primary" onclick="alert('Talep alındı')">Talebi Al</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- RESTAURANT PAGE -->
-    <section id="restaurantPage" class="hidden">
-      <button class="btn btn-dark back-btn" onclick="showPage('homePage')">← Geri Dön</button>
-
-      <div class="top-actions">
-        <div>
-          <div class="page-title">Restoran Başvurusu</div>
-          <div class="page-subtitle">Platformumuza katılmak için bilgilerinizi bırakın.</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <form class="form-grid" onsubmit="submitRestaurant(event)">
-          <div class="form-group">
-            <label for="restaurantName">Restoran Adı</label>
-            <input id="restaurantName" type="text" placeholder="Restoran Adı" required />
-          </div>
-
-          <div class="form-group">
-            <label for="restaurantPhone">Telefon</label>
-            <input id="restaurantPhone" type="text" placeholder="05xx xxx xx xx" required />
-          </div>
-
-          <div class="form-group">
-            <label for="city">İl</label>
-            <input id="city" type="text" placeholder="İstanbul" required />
-          </div>
-
-          <div class="form-group">
-            <label for="district">İlçe</label>
-            <input id="district" type="text" placeholder="Esenyurt" required />
-          </div>
-
-          <div class="form-group full">
-            <label for="restaurantAddress">Adres</label>
-            <input id="restaurantAddress" type="text" placeholder="Restoran adresi" required />
-          </div>
-
-          <div class="form-group full">
-            <button class="btn btn-primary" type="submit">Başvuruyu Gönder</button>
-          </div>
-        </form>
-
-        <div id="restaurantSuccess" class="success-box">
-          Başvurunuz başarıyla gönderildi.
-        </div>
-      </div>
-    </section>
   </div>
 
-  <script>
-    const pages = ['homePage', 'orderPage', 'marketPage', 'restaurantPage'];
+  <!-- Bottom -->
+  <div class="navbar">
+    <div>Ana Sayfa</div>
+    <div>Sipariş Form</div>
+  </div>
 
-    function showPage(pageId) {
-      pages.forEach(id => {
-        document.getElementById(id).classList.add('hidden');
-      });
-      document.getElementById(pageId).classList.remove('hidden');
-    }
+</div>
 
-    function submitOrder(event) {
-      event.preventDefault();
-      document.getElementById('successMessage').style.display = 'block';
-      event.target.reset();
-    }
-
-    function submitRestaurant(event) {
-      event.preventDefault();
-      document.getElementById('restaurantSuccess').style.display = 'block';
-      event.target.reset();
-    }
-  </script>
 </body>
 </html>
